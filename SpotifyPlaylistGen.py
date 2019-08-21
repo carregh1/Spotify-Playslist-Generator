@@ -108,14 +108,14 @@ plt.title('Elbow Method for Optimal k')
 plt.show()
  
 
-#train clusters, k = 12 based on the elbow curve produced above
+# Train clusters, k = 12 based on the elbow curve produced above
 kModel = KMeans(n_clusters = 12)
 kModel.fit(trainSongData)
 #trainLabels = kModel.labels_
 #predict cluster of test data
 assigned = kModel.predict(testSongData)
 
-# organize the training data into playlists based on predicted clsuters
+# Organize the training data into playlists based on predicted clsuters
 playlist0 = []
 playlist1 = []
 playlist2 = []
@@ -158,8 +158,8 @@ for x in assigned:
     else:
         playlist11.append(addSong)
         
-#can have user input for what playlist or random int chosen
-#currently there is no reasoning for which number is assigned to which playlist
+# Can have user input for what playlist or random int chosen
+# Currently there is no reasoning for which number is assigned to which playlist
 #
 #inp = input("What playlist would you like? (0 - 11) ")  
 #select = int(inp)
