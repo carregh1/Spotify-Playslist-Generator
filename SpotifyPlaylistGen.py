@@ -3,7 +3,7 @@
 Created on Mon Dec 10 14:47:06 2018
 
 Description: A k-means clustering algorithm that connects with a user's Spotify acocunt
-and loads the saved songs into customized playlists based on six selected features.
+and loads the saved songs into customized playlists based on thr selected features.
 
 Requirments: Spotify library installed on device, Spotify account and dashboard app created
 
@@ -69,11 +69,11 @@ for group in grouper(50, uris):
     res = sp.audio_features(tracks=group)
     for item in res:
         uris_to_features[item['uri']] = item
-FEATURE_VECTOR = [None]*3; 
+FEATURE_VECTOR = [None]*7; 
 features = 1
 
 
-while features < 4:
+while features < 7:
 	FEATURE_VECTOR[features-1] = input("Enter desired feature vectors (energy, valence, liveness, etc): ")
 	features+=1
 
