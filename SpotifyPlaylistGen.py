@@ -40,6 +40,8 @@ token = spotipy.util.prompt_for_user_token(USERNAME, scope=SCOPE, client_id=CLIE
 
 sp = spotipy.Spotify(auth=token)
 
+# END OF SPOTIFY CODE
+
 print("Importing your songs...")
 # Get the Spotify URIs of each of my saved songs.
 uris = set([])
@@ -111,8 +113,8 @@ plt.show()
 # Train clusters, k = 12 based on the elbow curve produced above
 kModel = KMeans(n_clusters = 12)
 kModel.fit(trainSongData)
-#trainLabels = kModel.labels_
-#predict cluster of test data
+
+# Predict cluster of test data
 assigned = kModel.predict(testSongData)
 
 # Organize the training data into playlists based on predicted clsuters
@@ -158,14 +160,12 @@ for x in assigned:
     else:
         playlist11.append(addSong)
         
-# Can have user input for what playlist or random int chosen
-# Currently there is no reasoning for which number is assigned to which playlist
-#
-#inp = input("What playlist would you like? (0 - 11) ")  
-#select = int(inp)
-select =  random.randint(0,11)  
+# Can have user input for what playlist or random int chosen. 
+# inp = input("What playlist would you like? (0 - 11) ")  
+# select = int(inp)
+# 
+select =  random.randint(0,11)  # Randomly selects playlist
 playSelect = []
-#inp = input("Instead of your own songs, would you like a playlist of recommendations? ")
 
 if select == 0:
     playSelect = playlist0
