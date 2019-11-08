@@ -1,11 +1,11 @@
 
 """
-Created on Mon Dec 10 14:47:06 2018
+Created on Mon Dec 10 2018
 
 Description: A k-means clustering algorithm that connects with a user's Spotify acocunt
 and loads the saved songs into customized playlists based on four selected features.
 
-Requirments: Spotify library installed on device, Spotify account and dashboard app created
+Requirments: Spotify library, account, and developer dashboard app 
 
 @author: Diego Carregha
 
