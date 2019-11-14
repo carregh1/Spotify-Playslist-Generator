@@ -2,9 +2,13 @@
 """
 
 Description: A k-means clustering algorithm that connects with a user's Spotify acocunt
-and loads the saved songs into customized playlists based on four selected features.
+and loads the saved songs into customized playlists based on six selected features.
+The value for k may change depending on the size of your music library, make sure to look
+at the elbow curve to find your optimal value and make changes accordingly. 
 
-Requirments: Spotify library, account, and developer dashboard app 
+Requirments: Spotify account and developer dashboard app created
+
+
 
 @author: Diego Carregha
 
@@ -22,13 +26,13 @@ from sklearn.model_selection import train_test_split
 
 ## CODE PROVIDED BY SPOTIFY TO GO THROUGH AUTHORIZATION FLOW ##
 
-# Create your own Spotify app to get the ID and secret.
+# Create your own Spotify developer account to get the ID and secret.
 # https://developer.spotify.com/dashboard/applications
-CLIENT_ID = '-----' #created spotify dashboard account ID
-CLIENT_SECRET = '-----'#dashboard account secret
+CLIENT_ID = 'd6d8730653444858a682bd7cf584f761' # Dreated spotify dashboard account ID
+CLIENT_SECRET = 'a55b17fdfacc4705b7135e071511b59f'# Dashboard account secret
 
 # Personal to your Spotify username 
-USERNAME = '<USERNAME>'
+USERNAME = 'carregha2'
 
 REDIRECT_URI = 'http://localhost:8888'
 SCOPE = 'user-library-read'
@@ -38,8 +42,6 @@ token = spotipy.util.prompt_for_user_token(USERNAME, scope=SCOPE, client_id=CLIE
                                            client_secret=CLIENT_SECRET, redirect_uri=REDIRECT_URI)
 
 sp = spotipy.Spotify(auth=token)
-
-# END OF SPOTIFY CODE
 
 print("Importing your songs...")
 # Get the Spotify URIs of each of my saved songs.
@@ -70,11 +72,11 @@ for group in grouper(50, uris):
     res = sp.audio_features(tracks=group)
     for item in res:
         uris_to_features[item['uri']] = item
-FEATURE_VECTOR = [None]*7; 
+FEATURE_VECTOR = [None]*3; 
 features = 1
 
 
-while features < 5:
+while features < 4:
 	FEATURE_VECTOR[features-1] = input("Enter desired feature vectors (energy, valence, liveness, etc): ")
 	features+=1
 
@@ -109,26 +111,19 @@ plt.title('Elbow Method for Optimal k')
 plt.show()
  
 
-# Train clusters, k = 12 based on the elbow curve produced above
-kModel = KMeans(n_clusters = 12)
+# Train clusters, k = 5 based on the elbow curve produced above
+kModel = KMeans(n_clusters = 5)
 kModel.fit(trainSongData)
-
-# Predict cluster of test data
+#trainLabels = kModel.labels_
+#predict cluster of test data
 assigned = kModel.predict(testSongData)
 
-# Organize the training data into playlists based on predicted clsuters
+# Organize the training data into playlists based on predicted clsuters (5 clusters so 5 playlists)
 playlist0 = []
 playlist1 = []
 playlist2 = []
 playlist3 = []
 playlist4 = []
-playlist5 = []
-playlist6 = []
-playlist7 = []
-playlist8 = []
-playlist9 = []
-playlist10 = []
-playlist11 = []
 
 itr = -1
 for x in assigned:
@@ -143,27 +138,14 @@ for x in assigned:
     elif x == 3:
         playlist3.append(addSong)
     elif x == 4:
-        playlist3.append(addSong)
-    elif x == 5:
-        playlist5.append(addSong)
-    elif x == 6:
-        playlist6.append(addSong)
-    elif x == 7:
-        playlist7.append(addSong)
-    elif x == 8:
-        playlist8.append(addSong)
-    elif x == 9:
-        playlist9.append(addSong)
-    elif x == 10:
-        playlist10.append(addSong)
-    else:
-        playlist11.append(addSong)
+        playlist4.append(addSong)
         
-# Can have user input for what playlist or random int chosen. 
-# inp = input("What playlist would you like? (0 - 11) ")  
+# Can have user input for what playlist or random int chosen
+# Currently there is no reasoning for which number is assigned to which playlist
+#
+# Inp = input("What playlist would you like? (0 - 4) ")  
 # select = int(inp)
-# 
-select =  random.randint(0,11)  # Randomly selects playlist
+select =  random.randint(0,4)  
 playSelect = []
 
 if select == 0:
@@ -176,20 +158,6 @@ elif select == 3:
     playSelect = playlist3
 elif select == 4:
     playSelect = playlist4
-elif select == 5:
-    playSelect = playlist5
-elif select == 6:
-    playSelect = playlist6
-elif select == 7:
-    playSelect = playlist7
-elif select == 8:
-    playSelect = playlist8
-elif select == 9:
-    playSelect = playlist9
-elif select == 10:
-    playSelect = playlist10
-elif select == 11:
-    playSelect = playlist11
 else:
     print("Error. Number not in range")
     
