@@ -1,6 +1,5 @@
 
 """
-Created on Mon Dec 10 2018
 
 Description: A k-means clustering algorithm that connects with a user's Spotify acocunt
 and loads the saved songs into customized playlists based on four selected features.
